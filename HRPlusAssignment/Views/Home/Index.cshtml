@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Employee Management";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome to the HRPlusAssignment application! Below is our employee directory.</p>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRPlusAssignment.Models.Employee>()
+            .Name("employeesGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.Id).Width(80).Title("ID");
+                columns.Bound(c => c.FirstName).Width(120);
+                columns.Bound(c => c.LastName).Width(120);
+                columns.Bound(c => c.Email).Width(200);
+                columns.Bound(c => c.Department).Width(120);
+                columns.Bound(c => c.Position).Width(150);
+                columns.Bound(c => c.HireDate).Format("{0:MM/dd/yyyy}").Width(120);
+                columns.Bound(c => c.Salary).Format("{0:C}").Width(120);
+                columns.Bound(c => c.IsActive).Width(80).Title("Active");
+            })
+            .HtmlAttributes(new { style = "height: 550px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("Employees_Read", "Home"))
+                .PageSize(10)
+            )
+        )
+    </div>
+</div>
