@@ -31,18 +31,8 @@ public class HomeController : Controller
 
     private List<Employee> GetSampleEmployees()
     {
-        // For now, return sample data. In a real application, you would query the database
-        return new List<Employee>
-        {
-            new Employee { EmployeeId = "EMP001", PositionId = "POS001", FirstName = "John", LastName = "Doe", Email = "john.doe@company.com", Phone = "555-0101", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP002", PositionId = "POS002", FirstName = "Jane", LastName = "Smith", Email = "jane.smith@company.com", Phone = "555-0102", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP003", PositionId = "POS003", FirstName = "Mike", LastName = "Johnson", Email = "mike.johnson@company.com", Phone = "555-0103", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP004", PositionId = "POS004", FirstName = "Sarah", LastName = "Williams", Email = "sarah.williams@company.com", Phone = "555-0104", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP005", PositionId = "POS005", FirstName = "David", LastName = "Brown", Email = "david.brown@company.com", Phone = "555-0105", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP006", PositionId = "POS006", FirstName = "Lisa", LastName = "Davis", Email = "lisa.davis@company.com", Phone = "555-0106", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP007", PositionId = "POS007", FirstName = "Tom", LastName = "Wilson", Email = "tom.wilson@company.com", Phone = "555-0107", Status = EmployeeStatus.Active },
-            new Employee { EmployeeId = "EMP008", PositionId = "POS008", FirstName = "Emily", LastName = "Taylor", Email = "emily.taylor@company.com", Phone = "555-0108", Status = EmployeeStatus.Active }
-        };
+        var employees = _context.Employees.ToList();
+        return employees;
     }
 
     public IActionResult Privacy()
