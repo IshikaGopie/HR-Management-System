@@ -9,7 +9,7 @@
 
 // This file contains provisioning of Telerik products runtime usage.
 
-[assembly: Telerik.Licensing.LicenseUsedDateAttribute("2025-10-18")]
+[assembly: Telerik.Licensing.LicenseUsedDateAttribute("2025-10-19")]
 [assembly: Telerik.Licensing.EvidenceAttribute("eyJhbGciOiJSUzI1NiIsInR5cCI6IlRlbGVyaWsgTGljZW5zZSBFdmlkZW5jZSJ9.eyJjb2RlIjoiVUlBU1BDT1JFIiwidHlwZSI6InRyaWFsIiwiZXhwaXJhdGlvbiI6MTc2MzQxODg2OSwidXNlcklkIjoiNzYyNTQyZDItZDdhYy00MDJiLTk1ZTAtOTYzZTI1YjgwNTRjIiwibGljZW5zZUlkIjoiNTJiYmJhOTAtNmRhNS00NThhLWI3ZTEtZWExZjQ4NjFmYWE0In0.rKBNSiRBUzFr7E3DX3Is6aCwC8eN5_BCxLXzrQiGc6u7Jrf1ClgIL4fHgTLcJdNsUEJeIA_YDlXibR3m7UDtM6B5mMupHuOdyjL5SOC4mTXuzxC09pbpaelEgsGVEtiKRBANy5XniKdQJrmoSD2l7c-djF8IZ-H1vG3-_5k_GA2VgjY40oq0U0ORod0umRDqgN4UY-0wpLt7V2tl_-HrMT1zagTIKadHrsK7a6NnCxXm_-JeMMHHmiaUbmTCUPUnQdX2xr2G0A2NqjPby4HMr_116h__AqZvQlSyjtj5WVKCyWMeI2WubGi6NftVobpSfWbVnQcXdlZUYQHN-WKFUw")]
 
 [assembly: Telerik.Licensing.ProductReferenceAttribute("UIASPCORE", "2025-10-02", "", "Telerik UI for ASP.NET Core", "2025.3.1002.0")]

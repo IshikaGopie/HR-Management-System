@@ -1,3 +1,6 @@
+using HRPlusAssignment.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,10 @@ builder.Services.AddControllersWithViews()
 
 // Add Kendo UI services
 builder.Services.AddKendo();
+
+// Add Entity Framework
+builder.Services.AddDbContext<HrDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

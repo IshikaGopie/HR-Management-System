@@ -11,15 +11,13 @@
             .Name("employeesGrid")
             .Columns(columns =>
             {
-                columns.Bound(c => c.Id).Width(80).Title("ID");
+                columns.Bound(c => c.EmployeeId).Width(100).Title("Employee ID");
                 columns.Bound(c => c.FirstName).Width(120);
                 columns.Bound(c => c.LastName).Width(120);
                 columns.Bound(c => c.Email).Width(200);
-                columns.Bound(c => c.Department).Width(120);
-                columns.Bound(c => c.Position).Width(150);
-                columns.Bound(c => c.HireDate).Format("{0:MM/dd/yyyy}").Width(120);
-                columns.Bound(c => c.Salary).Format("{0:C}").Width(120);
-                columns.Bound(c => c.IsActive).Width(80).Title("Active");
+                columns.Bound(c => c.Phone).Width(120);
+                columns.Bound(c => c.PositionId).Width(100).Title("Position ID");
+                columns.Bound(c => c.Status).Width(100);
             })
             .HtmlAttributes(new { style = "height: 550px;" })
             .DataSource(dataSource => dataSource

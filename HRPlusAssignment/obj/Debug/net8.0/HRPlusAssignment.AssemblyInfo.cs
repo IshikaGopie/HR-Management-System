@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HRPlusAssignment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd27a932aadb30140ab8b8d858b1c2870dcb4c8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("HRPlusAssignment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HRPlusAssignment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
