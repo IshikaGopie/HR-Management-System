@@ -32,14 +32,26 @@
             })
             .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EmployeeEditor"))
             .HtmlAttributes(new { style = "height: 700px;" })
+            .Pageable()
+            .Sortable()
             .DataSource(dataSource => dataSource
                 .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.EmployeeId);
+                    model.Field(p => p.EmployeeId).Editable(false);
+                    model.Field(p => p.FirstName);
+                    model.Field(p => p.LastName);
+                    model.Field(p => p.Email);
+                    model.Field(p => p.Phone);
+                    model.Field(p => p.PositionId);
+                    model.Field(p => p.Status);
+                })
                 .Read(read => read.Action("Employees_Read", "Home"))
                 .Create(create => create.Action("Employee_Create", "Home"))
                 .Update(update => update.Action("Employee_Update", "Home"))
                 .Destroy(destroy => destroy.Action("Employee_Delete", "Home"))
-                .PageSize(10)
-                
             )
         )
     </div>

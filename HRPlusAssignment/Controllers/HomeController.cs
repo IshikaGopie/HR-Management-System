@@ -44,21 +44,19 @@ public class HomeController : Controller
     }
     
     // Create employee
-    public IActionResult Employee_Create([FromBody] Employee employee)
+    [HttpPost]
+    public IActionResult Employee_Create([DataSourceRequest] DataSourceRequest request, Employee employee)
     {
-        if (ModelState.IsValid)
+        // Generate EmployeeId if not provided
+        if (string.IsNullOrEmpty(employee.EmployeeId))
         {
-            // Generate EmployeeId if not provided
-            if (string.IsNullOrEmpty(employee.EmployeeId))
-            {
-                employee.EmployeeId = GenerateEmployeeId();
-            }
-            
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
-            return Json(employee);
+            employee.EmployeeId = GenerateEmployeeId();
         }
-        return BadRequest(ModelState);
+        
+        _context.Employees.Add(employee);
+        _context.SaveChanges();
+    
+        return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
     }
     
     private string GenerateEmployeeId()
@@ -86,16 +84,16 @@ public class HomeController : Controller
     }
     
     // Update employee
-    public IActionResult Employee_Update([FromBody] Employee employee)
+    [HttpPost]
+    public IActionResult Employee_Update([DataSourceRequest] DataSourceRequest request, Employee employee)
     {
-        if (ModelState.IsValid)
+        var existingEmployee = _context.Employees.Find(employee.EmployeeId);
+        if (existingEmployee == null)
         {
-            var existingEmployee = _context.Employees.Find(employee.EmployeeId);
-            if (existingEmployee == null)
-            {
-                return NotFound();
-            }
-            
+            ModelState.AddModelError("", "Employee not found");
+        }
+        else
+        {
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
             existingEmployee.Email = employee.Email;
@@ -104,27 +102,27 @@ public class HomeController : Controller
             existingEmployee.Status = employee.Status;
             
             _context.SaveChanges();
-            return Json(existingEmployee);
         }
-        return BadRequest(ModelState);
+       
+        return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
     }
     
     // Delete employee
-    public IActionResult Employee_Delete([FromBody] Employee employee)
+    [HttpPost]
+    public IActionResult Employee_Delete([DataSourceRequest] DataSourceRequest request, Employee employee)
     {
-        if (ModelState.IsValid)
+        var existingEmployee = _context.Employees.Find(employee.EmployeeId);
+        if (existingEmployee == null)
         {
-            var existingEmployee = _context.Employees.Find(employee.EmployeeId);
-            if (existingEmployee == null)
-            {
-                return NotFound();
-            }
-            
+            ModelState.AddModelError("", "Employee not found");
+        }
+        else
+        {
             _context.Employees.Remove(existingEmployee);
             _context.SaveChanges();
-            return Json(existingEmployee);
         }
-        return BadRequest(ModelState);
+        
+        return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
     }
     
     // Positions
@@ -147,39 +145,39 @@ public class HomeController : Controller
     }
     
     // Create position
-    public IActionResult Position_Create([FromBody] Position position)
+    [HttpPost]
+    public IActionResult Position_Create([DataSourceRequest] DataSourceRequest request, Position position)
     {
         if (ModelState.IsValid)
         {
             _context.Positions.Add(position);
             _context.SaveChanges();
-            return Json(position);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
     
     // Update position
-    public IActionResult Position_Update([FromBody] Position position)
+    [HttpPost]
+    public IActionResult Position_Update([DataSourceRequest] DataSourceRequest request, Position position)
     {
         if (ModelState.IsValid)
         {
             _context.Positions.Update(position);
             _context.SaveChanges();
-            return Json(position);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
     
     // Delete position
-    public IActionResult Position_Delete([FromBody] Position position)
+    [HttpPost]
+    public IActionResult Position_Delete([DataSourceRequest] DataSourceRequest request, Position position)
     {
         if (ModelState.IsValid)
         {
             _context.Positions.Remove(position);
             _context.SaveChanges();
-            return Json(position);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
     
     
@@ -202,39 +200,39 @@ public class HomeController : Controller
     }
     
     // Create job
-    public IActionResult Job_Create([FromBody] Job job)
+    [HttpPost]
+    public IActionResult Job_Create([DataSourceRequest] DataSourceRequest request, Job job)
     {
         if (ModelState.IsValid)
         {
             _context.Jobs.Add(job);
             _context.SaveChanges();
-            return Json(job);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
     
     // Update job
-    public IActionResult Job_Update([FromBody] Job job)
+    [HttpPost]
+    public IActionResult Job_Update([DataSourceRequest] DataSourceRequest request, Job job)
     {
         if (ModelState.IsValid)
         {
             _context.Jobs.Update(job);
             _context.SaveChanges();
-            return Json(job);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
     
     // Delete job
-    public IActionResult Job_Delete([FromBody] Job job)
+    [HttpPost]
+    public IActionResult Job_Delete([DataSourceRequest] DataSourceRequest request, Job job)
     {
         if (ModelState.IsValid)
         {
             _context.Jobs.Remove(job);
             _context.SaveChanges();
-            return Json(job);
         }
-        return BadRequest(ModelState);
+        return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
     
     // Dropdown data methods
