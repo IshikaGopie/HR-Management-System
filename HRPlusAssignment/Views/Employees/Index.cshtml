@@ -30,6 +30,12 @@
                 toolbar.Search();
             })
             .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EmployeeEditor"))
+            .Pageable(pageable => pageable
+                .Refresh(true)
+                .PageSizes(true)
+                .ButtonCount(5)
+                .PageSizes(new int[] { 5, 10, 20, 50, 100 })
+            )
             .HtmlAttributes(new { style = "height: 700px;" })
             .Scrollable(scrollable => scrollable.Virtual(true))
             .Resizable(resizable => resizable.Columns(true))

@@ -147,6 +147,83 @@ namespace HRPlusAssignment.Data
                     JobLevel = "Entry", 
                     ReportsToPositionId = "POS003",
                     Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS009", 
+                    PositionCode = "DEV003", 
+                    PositionTitle = "Junior Software Developer", 
+                    DepartmentId = "DEPT002", 
+                    JobId = "JOB005", 
+                    JobLevel = "Entry", 
+                    ReportsToPositionId = "POS004",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS010", 
+                    PositionCode = "ANALYST002", 
+                    PositionTitle = "Senior Business Analyst", 
+                    DepartmentId = "DEPT003", 
+                    JobId = "JOB006", 
+                    JobLevel = "Senior", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS011", 
+                    PositionCode = "TECH001", 
+                    PositionTitle = "Technical Support Specialist", 
+                    DepartmentId = "DEPT002", 
+                    JobId = "JOB008", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS004",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS012", 
+                    PositionCode = "ADMIN002", 
+                    PositionTitle = "Office Administrator", 
+                    DepartmentId = "DEPT001", 
+                    JobId = "JOB007", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS003",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS013", 
+                    PositionCode = "FIN001", 
+                    PositionTitle = "Financial Analyst", 
+                    DepartmentId = "DEPT003", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS014", 
+                    PositionCode = "MKT001", 
+                    PositionTitle = "Marketing Coordinator", 
+                    DepartmentId = "DEPT004", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS015", 
+                    PositionCode = "OPS001", 
+                    PositionTitle = "Operations Coordinator", 
+                    DepartmentId = "DEPT005", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
                 }
             };
 
@@ -235,11 +312,268 @@ namespace HRPlusAssignment.Data
                     Email = "jennifer.martinez@company.com", 
                     Phone = "555-0108", 
                     Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP009", 
+                    PositionId = "POS009", 
+                    FirstName = "Alex", 
+                    LastName = "Garcia", 
+                    Email = "alex.garcia@company.com", 
+                    Phone = "555-0109", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP010", 
+                    PositionId = "POS010", 
+                    FirstName = "Maria", 
+                    LastName = "Rodriguez", 
+                    Email = "maria.rodriguez@company.com", 
+                    Phone = "555-0110", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP011", 
+                    PositionId = "POS011", 
+                    FirstName = "James", 
+                    LastName = "Lee", 
+                    Email = "james.lee@company.com", 
+                    Phone = "555-0111", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP012", 
+                    PositionId = "POS012", 
+                    FirstName = "Amanda", 
+                    LastName = "White", 
+                    Email = "amanda.white@company.com", 
+                    Phone = "555-0112", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP013", 
+                    PositionId = "POS013", 
+                    FirstName = "Christopher", 
+                    LastName = "Harris", 
+                    Email = "christopher.harris@company.com", 
+                    Phone = "555-0113", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP014", 
+                    PositionId = "POS014", 
+                    FirstName = "Jessica", 
+                    LastName = "Clark", 
+                    Email = "jessica.clark@company.com", 
+                    Phone = "555-0114", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP015", 
+                    PositionId = "POS015", 
+                    FirstName = "Michael", 
+                    LastName = "Lewis", 
+                    Email = "michael.lewis@company.com", 
+                    Phone = "555-0115", 
+                    Status = EmployeeStatus.Active 
                 }
             };
 
             context.Employees.AddRange(employees);
             await context.SaveChangesAsync();
+        }
+
+        private static async Task AddAdditionalPositions(HrDbContext context)
+        {
+            // Get existing position IDs to avoid duplicates
+            var existingPositionIds = context.Positions.Select(p => p.PositionId).ToHashSet();
+            
+            // Additional positions to add (only if they don't exist)
+            var additionalPositions = new List<Position>
+            {
+                new Position 
+                { 
+                    PositionId = "POS009", 
+                    PositionCode = "DEV003", 
+                    PositionTitle = "Junior Software Developer", 
+                    DepartmentId = "DEPT002", 
+                    JobId = "JOB005", 
+                    JobLevel = "Entry", 
+                    ReportsToPositionId = "POS004",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS010", 
+                    PositionCode = "ANALYST002", 
+                    PositionTitle = "Senior Business Analyst", 
+                    DepartmentId = "DEPT003", 
+                    JobId = "JOB006", 
+                    JobLevel = "Senior", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS011", 
+                    PositionCode = "TECH001", 
+                    PositionTitle = "Technical Support Specialist", 
+                    DepartmentId = "DEPT002", 
+                    JobId = "JOB008", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS004",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS012", 
+                    PositionCode = "ADMIN002", 
+                    PositionTitle = "Office Administrator", 
+                    DepartmentId = "DEPT001", 
+                    JobId = "JOB007", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS003",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS013", 
+                    PositionCode = "FIN001", 
+                    PositionTitle = "Financial Analyst", 
+                    DepartmentId = "DEPT003", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS014", 
+                    PositionCode = "MKT001", 
+                    PositionTitle = "Marketing Coordinator", 
+                    DepartmentId = "DEPT004", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                },
+                new Position 
+                { 
+                    PositionId = "POS015", 
+                    PositionCode = "OPS001", 
+                    PositionTitle = "Operations Coordinator", 
+                    DepartmentId = "DEPT005", 
+                    JobId = "JOB006", 
+                    JobLevel = "Mid", 
+                    ReportsToPositionId = "POS001",
+                    Status = PositionStatus.Active 
+                }
+            };
+
+            // Filter out positions that already exist
+            var newPositions = additionalPositions.Where(p => !existingPositionIds.Contains(p.PositionId)).ToList();
+            
+            if (newPositions.Any())
+            {
+                context.Positions.AddRange(newPositions);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task AddAdditionalEmployees(HrDbContext context)
+        {
+            // Get existing employee IDs to avoid duplicates
+            var existingEmployeeIds = context.Employees.Select(e => e.EmployeeId).ToHashSet();
+            
+            // Additional employees to add (only if they don't exist)
+            var additionalEmployees = new List<Employee>
+            {
+                new Employee 
+                { 
+                    EmployeeId = "EMP009", 
+                    PositionId = "POS009", 
+                    FirstName = "Alex", 
+                    LastName = "Garcia", 
+                    Email = "alex.garcia@company.com", 
+                    Phone = "555-0109", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP010", 
+                    PositionId = "POS010", 
+                    FirstName = "Maria", 
+                    LastName = "Rodriguez", 
+                    Email = "maria.rodriguez@company.com", 
+                    Phone = "555-0110", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP011", 
+                    PositionId = "POS011", 
+                    FirstName = "James", 
+                    LastName = "Lee", 
+                    Email = "james.lee@company.com", 
+                    Phone = "555-0111", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP012", 
+                    PositionId = "POS012", 
+                    FirstName = "Amanda", 
+                    LastName = "White", 
+                    Email = "amanda.white@company.com", 
+                    Phone = "555-0112", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP013", 
+                    PositionId = "POS013", 
+                    FirstName = "Christopher", 
+                    LastName = "Harris", 
+                    Email = "christopher.harris@company.com", 
+                    Phone = "555-0113", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP014", 
+                    PositionId = "POS014", 
+                    FirstName = "Jessica", 
+                    LastName = "Clark", 
+                    Email = "jessica.clark@company.com", 
+                    Phone = "555-0114", 
+                    Status = EmployeeStatus.Active 
+                },
+                new Employee 
+                { 
+                    EmployeeId = "EMP015", 
+                    PositionId = "POS015", 
+                    FirstName = "Michael", 
+                    LastName = "Lewis", 
+                    Email = "michael.lewis@company.com", 
+                    Phone = "555-0115", 
+                    Status = EmployeeStatus.Active 
+                }
+            };
+
+            // Filter out employees that already exist
+            var newEmployees = additionalEmployees.Where(e => !existingEmployeeIds.Contains(e.EmployeeId)).ToList();
+            
+            if (newEmployees.Any())
+            {
+                context.Employees.AddRange(newEmployees);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
