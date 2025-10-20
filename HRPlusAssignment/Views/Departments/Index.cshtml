@@ -1,9 +1,12 @@
 @{
     ViewData["Title"] = "Department Management";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Welcome to the department management application! Manage your department directory below.</p>
+<div class="page-header">
+    <div class="container-fluid">
+        <h1>@ViewData["Title"]</h1>
+        <p class="responsive-text">Welcome to the department management application! Manage your department directory below.</p>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -11,10 +14,10 @@
             .Name("departmentGrid")
             .Columns(columns =>
             {
-                columns.Bound(c => c.DepartmentId).Width(100).Title("Department ID");
-                columns.Bound(c => c.DepartmentCode).Width(150).Title("Department Code");
-                columns.Bound(c => c.DepartmentName).Width(200).Title("Department Name");
-                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+                columns.Bound(c => c.DepartmentId).Title("Department ID").Width("100px");
+                columns.Bound(c => c.DepartmentCode).Title("Department Code").Width("140px");
+                columns.Bound(c => c.DepartmentName).Title("Department Name").Width("200px");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width("150px");
             })
             .ToolBar(toolbar =>
             {
@@ -24,6 +27,8 @@
             })
             .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("DepartmentEditor"))
             .HtmlAttributes(new { style = "height: 700px;" })
+            .Scrollable(scrollable => scrollable.Virtual(true))
+            .Resizable(resizable => resizable.Columns(true))
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(10)

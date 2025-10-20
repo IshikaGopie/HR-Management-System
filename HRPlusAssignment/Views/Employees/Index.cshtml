@@ -1,9 +1,12 @@
 @{
     ViewData["Title"] = "Employee Management";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Welcome to the position management application! Manage your employee directory below.</p>
+<div class="page-header">
+    <div class="container-fluid">
+        <h1>@ViewData["Title"]</h1>
+        <p class="responsive-text">Welcome to the employee management application! Manage your employee directory below.</p>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -11,14 +14,14 @@
             .Name("employeesGrid")
             .Columns(columns =>
             {
-                columns.Bound(c => c.EmployeeId).Width(100).Title("Employee ID");
-                columns.Bound(c => c.FirstName).Width(120);
-                columns.Bound(c => c.LastName).Width(120);
-                columns.Bound(c => c.Email).Width(200);
-                columns.Bound(c => c.Phone).Width(120);
-                columns.Bound(c => c.PositionId).Width(100).Title("Position ID");
-                columns.Bound(c => c.Status).Width(100);
-                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+                columns.Bound(c => c.EmployeeId).Title("Employee ID").Width("80px");
+                columns.Bound(c => c.FirstName).Width("100px");
+                columns.Bound(c => c.LastName).Width("100px");
+                columns.Bound(c => c.Email).Width("180px");
+                columns.Bound(c => c.Phone).Width("100px");
+                columns.Bound(c => c.PositionId).Title("Position ID").Width("80px");
+                columns.Bound(c => c.Status).Width("80px");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width("150px");
             })
             .ToolBar(toolbar =>
             {
@@ -28,6 +31,8 @@
             })
             .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EmployeeEditor"))
             .HtmlAttributes(new { style = "height: 700px;" })
+            .Scrollable(scrollable => scrollable.Virtual(true))
+            .Resizable(resizable => resizable.Columns(true))
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(10)
