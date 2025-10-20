@@ -17,6 +17,11 @@ public class JobsController : Controller
         _logger = logger;
     }
 
+    public IActionResult Index()
+    {
+        return View();
+    }
+
     public IActionResult Jobs_Read([DataSourceRequest] DataSourceRequest request)
     {
         var jobs = _context.Jobs.ToList();
@@ -33,33 +38,29 @@ public class JobsController : Controller
     [HttpPost]
     public IActionResult Job_Create([DataSourceRequest] DataSourceRequest request, Job job)
     {
-        if (ModelState.IsValid)
+        if (string.IsNullOrEmpty(job.JobId))
         {
-            _context.Jobs.Add(job);
-            _context.SaveChanges();
+            job.JobId = GenerateJobId();
         }
+        
+        _context.Jobs.Add(job);
+        _context.SaveChanges();
         return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
 
     [HttpPost]
     public IActionResult Job_Update([DataSourceRequest] DataSourceRequest request, Job job)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Jobs.Update(job);
-            _context.SaveChanges();
-        }
+        _context.Jobs.Update(job);
+        _context.SaveChanges();
         return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
 
     [HttpPost]
     public IActionResult Job_Delete([DataSourceRequest] DataSourceRequest request, Job job)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Jobs.Remove(job);
-            _context.SaveChanges();
-        }
+        _context.Jobs.Remove(job);
+        _context.SaveChanges();
         return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
 
@@ -68,6 +69,29 @@ public class JobsController : Controller
     {
         var jobs = _context.Jobs.Select(j => new { Value = j.JobId, Text = j.JobTitle }).ToList();
         return Json(jobs);
+    }
+    
+    private string GenerateJobId()
+    {
+        var lastJob = _context.Jobs
+            .Where(e => e.JobId.StartsWith("JOB") && e.JobId.Length == 6)
+            .OrderByDescending(e => e.JobId)
+            .FirstOrDefault();
+
+        if (lastJob == null)
+        {
+            return "JOB001";
+        }
+
+        try
+        {
+            var lastNumber = int.Parse(lastJob.JobId.Substring(3));
+            return $"JOB{(lastNumber + 1):D3}";
+        }
+        catch
+        {
+            return $"JOB{DateTime.Now:yyyyMMddHHmmss}";
+        }
     }
 }
 

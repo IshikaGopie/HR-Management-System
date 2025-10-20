@@ -1,0 +1,26 @@
+@model HRPlusAssignment.Models.Department
+
+<div class="k-edit-form-container">
+    <div class="k-edit-label">
+        <label for="DepartmentId"><i class="fas fa-id-card"></i> Department ID</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.DepartmentId, new { @class = "k-textbox", @readonly = "readonly", @placeholder = "Auto-generated" })
+    </div>
+
+    <div class="k-edit-label">
+        <label for="DepartmentCode"><i class="fas fa-code"></i> Department Code</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.DepartmentCode, new { @class = "k-textbox", @placeholder = "e.g., IT, HR, FIN" })
+        @Html.ValidationMessageFor(m => m.DepartmentCode)
+    </div>
+
+    <div class="k-edit-label">
+        <label for="DepartmentName"><i class="fas fa-building"></i> Department Name</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.DepartmentName, new { @class = "k-textbox", @placeholder = "e.g., Information Technology" })
+        @Html.ValidationMessageFor(m => m.DepartmentName)
+    </div>
+</div>

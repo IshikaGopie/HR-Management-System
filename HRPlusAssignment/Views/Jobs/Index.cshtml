@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Job Management";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome to the job management application! Manage your job directory below.</p>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRPlusAssignment.Models.Job>()
+            .Name("jobGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.JobId).Width(100).Title("Job ID");
+                columns.Bound(c => c.JobCode).Width(150).Title("Job Code");
+                columns.Bound(c => c.JobTitle).Width(200).Title("Job Title");
+                columns.Bound(c => c.JobGroupId).Width(150).Title("Job Group ID");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("Add New Job");
+                toolbar.Excel();
+                toolbar.Search();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("JobEditor"))
+            .HtmlAttributes(new { style = "height: 700px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.JobId);
+                    model.Field(p => p.JobCode);
+                    model.Field(p => p.JobTitle);
+                    model.Field(p => p.JobGroupId);
+                })
+                .Read(read => read.Action("Jobs_Read", "Jobs"))
+                .Create(create => create.Action("Job_Create", "Jobs"))
+                .Update(update => update.Action("Job_Update", "Jobs"))
+                .Destroy(destroy => destroy.Action("Job_Delete", "Jobs"))
+            )
+        )
+    </div>
+</div>

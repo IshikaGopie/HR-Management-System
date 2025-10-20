@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Department Management";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome to the department management application! Manage your department directory below.</p>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRPlusAssignment.Models.Department>()
+            .Name("departmentGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.DepartmentId).Width(100).Title("Department ID");
+                columns.Bound(c => c.DepartmentCode).Width(150).Title("Department Code");
+                columns.Bound(c => c.DepartmentName).Width(200).Title("Department Name");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("Add New Department");
+                toolbar.Excel();
+                toolbar.Search();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("DepartmentEditor"))
+            .HtmlAttributes(new { style = "height: 700px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.DepartmentId);
+                    model.Field(p => p.DepartmentCode);
+                    model.Field(p => p.DepartmentName);
+                })
+                .Read(read => read.Action("Departments_Read", "Departments"))
+                .Create(create => create.Action("Department_Create", "Departments"))
+                .Update(update => update.Action("Department_Update", "Departments"))
+                .Destroy(destroy => destroy.Action("Department_Delete", "Departments"))
+            )
+        )
+    </div>
+</div>
