@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Position Management";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome to the position management application! Manage your position directory below.</p>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRPlusAssignment.Models.Position>()
+            .Name("positionGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.PositionId).Width(100).Title("Position ID");
+                columns.Bound(c => c.PositionCode).Width(100).Title("Position Code");
+                columns.Bound(c => c.PositionTitle).Width(200).Title("Position Title");
+                columns.Bound(c => c.DepartmentId).Width(100).Title("Department ID");
+                columns.Bound(c => c.JobId).Width(100).Title("Job ID");
+                columns.Bound(c => c.JobLevel).Width(100).Title("Job Level");
+                columns.Bound(c => c.ReportsToPositionId).Width(100).Title("Reports To Position ID");
+                columns.Bound(c => c.Status).Width(100).Title("Status");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("Add New Position");
+                toolbar.Excel();
+                toolbar.Search();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("PositionEditor"))
+            .HtmlAttributes(new { style = "height: 700px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.PositionId);
+                    model.Field(p => p.PositionCode);
+                    model.Field(p => p.PositionTitle);
+                    model.Field(p => p.DepartmentId);
+                    model.Field(p => p.JobId);
+                    model.Field(p => p.JobLevel);
+                    model.Field(p => p.ReportsToPositionId);
+                    model.Field(p => p.Status);
+                })
+                .Read(read => read.Action("Positions_Read", "Positions"))
+                .Create(create => create.Action("Position_Create", "Positions"))
+                .Update(update => update.Action("Position_Update", "Positions"))
+                .Destroy(destroy => destroy.Action("Position_Delete", "Positions"))
+            )
+        )
+    </div>
+</div>

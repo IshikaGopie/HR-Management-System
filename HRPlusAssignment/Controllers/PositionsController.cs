@@ -16,6 +16,11 @@ public class PositionsController : Controller
         _context = context;
         _logger = logger;
     }
+    
+    public IActionResult Index()
+    {
+        return View();
+    }
 
     public IActionResult Positions_Read([DataSourceRequest] DataSourceRequest request)
     {
@@ -33,33 +38,29 @@ public class PositionsController : Controller
     [HttpPost]
     public IActionResult Position_Create([DataSourceRequest] DataSourceRequest request, Position position)
     {
-        if (ModelState.IsValid)
+        if (string.IsNullOrEmpty(position.PositionId))
         {
-            _context.Positions.Add(position);
-            _context.SaveChanges();
+            position.PositionId = GeneratePositionId();
         }
+        
+        _context.Positions.Add(position);
+        _context.SaveChanges();
         return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
 
     [HttpPost]
     public IActionResult Position_Update([DataSourceRequest] DataSourceRequest request, Position position)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Positions.Update(position);
-            _context.SaveChanges();
-        }
+        _context.Positions.Update(position);
+        _context.SaveChanges();
         return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
 
     [HttpPost]
     public IActionResult Position_Delete([DataSourceRequest] DataSourceRequest request, Position position)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Positions.Remove(position);
-            _context.SaveChanges();
-        }
+        _context.Positions.Remove(position);
+        _context.SaveChanges();
         return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
 
@@ -68,6 +69,29 @@ public class PositionsController : Controller
     {
         var positions = _context.Positions.Select(p => new { Value = p.PositionId, Text = p.PositionTitle }).ToList();
         return Json(positions);
+    }
+    
+    private string GeneratePositionId()
+    {
+        var lastPositon = _context.Positions
+            .Where(e => e.PositionId.StartsWith("POS") && e.PositionId.Length == 6)
+            .OrderByDescending(e => e.PositionId)
+            .FirstOrDefault();
+
+        if (lastPositon == null)
+        {
+            return "POS001";
+        }
+
+        try
+        {
+            var lastNumber = int.Parse(lastPositon.PositionId.Substring(3));
+            return $"POS{(lastNumber + 1):D3}";
+        }
+        catch
+        {
+            return $"POS{DateTime.Now:yyyyMMddHHmmss}";
+        }
     }
 }
 

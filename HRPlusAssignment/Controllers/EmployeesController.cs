@@ -23,11 +23,6 @@ public class EmployeesController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     // Employees CRUD for Kendo Grid
     public IActionResult Employees_Read([DataSourceRequest] DataSourceRequest request)
     {

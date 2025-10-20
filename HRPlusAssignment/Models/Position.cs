@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace HRPlusAssignment.Models
 {
@@ -42,10 +43,15 @@ namespace HRPlusAssignment.Models
         public PositionStatus Status { get; set; }
         
         // Navigation properties
+        [JsonIgnore]
         public virtual Department Department { get; set; } = null!;
+        [JsonIgnore]
         public virtual Job Job { get; set; } = null!;
+        [JsonIgnore]
         public virtual Position? ReportsToPosition { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Position> SubordinatePositions { get; set; } = new List<Position>();
+        [JsonIgnore]
         public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 }
