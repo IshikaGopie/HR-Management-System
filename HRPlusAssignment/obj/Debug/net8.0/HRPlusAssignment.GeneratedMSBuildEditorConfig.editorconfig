@@ -34,6 +34,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Shared/EditorTemplates/EmployeeEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0VkaXRvclRlbXBsYXRlcy9FbXBsb3llZUVkaXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Shared/EditorTemplates/JobEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0VkaXRvclRlbXBsYXRlcy9Kb2JFZGl0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Shared/EditorTemplates/PositionEditor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0VkaXRvclRlbXBsYXRlcy9Qb3NpdGlvbkVkaXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

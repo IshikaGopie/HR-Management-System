@@ -33,7 +33,7 @@ public class HomeController : Controller
     }
     
     // Get employee by id
-    public IActionResult Employee_Read(int id)
+    public IActionResult Employee_Read(string id)
     {
         var employee = _context.Employees.Find(id);
         if (employee == null)
@@ -48,6 +48,12 @@ public class HomeController : Controller
     {
         if (ModelState.IsValid)
         {
+            // Generate EmployeeId if not provided
+            if (string.IsNullOrEmpty(employee.EmployeeId))
+            {
+                employee.EmployeeId = GenerateEmployeeId();
+            }
+            
             _context.Employees.Add(employee);
             _context.SaveChanges();
             return Json(employee);
@@ -55,14 +61,50 @@ public class HomeController : Controller
         return BadRequest(ModelState);
     }
     
+    private string GenerateEmployeeId()
+    {
+        var lastEmployee = _context.Employees
+            .Where(e => e.EmployeeId.StartsWith("EMP") && e.EmployeeId.Length == 6)
+            .OrderByDescending(e => e.EmployeeId)
+            .FirstOrDefault();
+            
+        if (lastEmployee == null)
+        {
+            return "EMP001";
+        }
+        
+        try
+        {
+            var lastNumber = int.Parse(lastEmployee.EmployeeId.Substring(3));
+            return $"EMP{(lastNumber + 1):D3}";
+        }
+        catch
+        {
+            // Fallback if parsing fails
+            return $"EMP{DateTime.Now:yyyyMMddHHmmss}";
+        }
+    }
+    
     // Update employee
     public IActionResult Employee_Update([FromBody] Employee employee)
     {
         if (ModelState.IsValid)
         {
-            _context.Employees.Update(employee);
+            var existingEmployee = _context.Employees.Find(employee.EmployeeId);
+            if (existingEmployee == null)
+            {
+                return NotFound();
+            }
+            
+            existingEmployee.FirstName = employee.FirstName;
+            existingEmployee.LastName = employee.LastName;
+            existingEmployee.Email = employee.Email;
+            existingEmployee.Phone = employee.Phone;
+            existingEmployee.PositionId = employee.PositionId;
+            existingEmployee.Status = employee.Status;
+            
             _context.SaveChanges();
-            return Json(employee);
+            return Json(existingEmployee);
         }
         return BadRequest(ModelState);
     }
@@ -72,9 +114,15 @@ public class HomeController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Employees.Remove(employee);
+            var existingEmployee = _context.Employees.Find(employee.EmployeeId);
+            if (existingEmployee == null)
+            {
+                return NotFound();
+            }
+            
+            _context.Employees.Remove(existingEmployee);
             _context.SaveChanges();
-            return Json(employee);
+            return Json(existingEmployee);
         }
         return BadRequest(ModelState);
     }
@@ -88,7 +136,7 @@ public class HomeController : Controller
     }
     
     // Get position by id
-    public IActionResult Position_Read(int id)
+    public IActionResult Position_Read(string id)
     {
         var position = _context.Positions.Find(id);
         if (position == null)
@@ -143,7 +191,7 @@ public class HomeController : Controller
     }
     
     // Get job by id
-    public IActionResult Job_Read(int id)
+    public IActionResult Job_Read(string id)
     {
         var job = _context.Jobs.Find(id);
         if (job == null)
@@ -187,6 +235,31 @@ public class HomeController : Controller
             return Json(job);
         }
         return BadRequest(ModelState);
+    }
+    
+    // Dropdown data methods
+    public IActionResult GetDepartments()
+    {
+        var departments = _context.Departments.Select(d => new { Value = d.DepartmentId, Text = d.DepartmentName }).ToList();
+        return Json(departments);
+    }
+    
+    public IActionResult GetJobs()
+    {
+        var jobs = _context.Jobs.Select(j => new { Value = j.JobId, Text = j.JobTitle }).ToList();
+        return Json(jobs);
+    }
+    
+    public IActionResult GetPositions()
+    {
+        var positions = _context.Positions.Select(p => new { Value = p.PositionId, Text = p.PositionTitle }).ToList();
+        return Json(positions);
+    }
+    
+    public IActionResult GetJobGroups()
+    {
+        var jobGroups = _context.JobGroups.Select(jg => new { Value = jg.JobGroupId, Text = jg.JobGroupName }).ToList();
+        return Json(jobGroups);
     }
     
     public IActionResult Privacy()
