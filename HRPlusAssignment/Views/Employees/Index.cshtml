@@ -18,22 +18,16 @@
                 columns.Bound(c => c.Phone).Width(120);
                 columns.Bound(c => c.PositionId).Width(100).Title("Position ID");
                 columns.Bound(c => c.Status).Width(100);
-                columns.Command(command =>
-                {
-                    command.Edit().Text("Edit").HtmlAttributes(new { @class = "my-edit-btn" });
-                    command.Destroy().Text("Delete").HtmlAttributes(new { @class = "my-delete-btn" });
-                }).Width(300);
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
             })
             .ToolBar(toolbar =>
             {
-                toolbar.Excel();
-                toolbar.Pdf();
                 toolbar.Create().Text("Add New Employee");
+                toolbar.Excel();
+                toolbar.Search();
             })
             .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EmployeeEditor"))
             .HtmlAttributes(new { style = "height: 700px;" })
-            .Pageable()
-            .Sortable()
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(10)
@@ -56,59 +50,3 @@
         )
     </div>
 </div>
-
-<style>
-    
-    /* Remove default Kendo icons */
-    .k-grid .k-grid-edit .k-icon,
-    .k-grid .k-grid-delete .k-icon {
-        display: none !important;
-    }
-    
-    /* Remove kendo icons from the toolbar */
-    .k-grid-toolbar .k-icon {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    
-    /* Base button styles */
-    .my-edit-btn,
-    .my-delete-btn {
-        width: 90px;             
-        height: 36px;            
-        border: none;
-        border-radius: 6px;
-        color: #fff;
-        font-weight: 500;
-        text-align: center;
-        cursor: pointer;
-        transition: background-color 0.25s ease, transform 0.1s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-    }
-
-    .my-edit-btn {
-        background-color: #4a90e2;
-    }
-
-    .my-edit-btn:hover {
-        background-color: #357ABD;
-        transform: scale(1.05);
-    }
-
-    .my-delete-btn {
-        background-color: #e74c3c;
-    }
-
-    .my-delete-btn:hover {
-        background-color: #c0392b;
-        transform: scale(1.05);
-    }
-
-    .k-grid .k-grid-content .k-command-cell .k-button + .k-button,
-    .k-grid .k-command-cell .my-edit-btn + .my-delete-btn {
-        margin-left: 8px;
-    }
-</style>
