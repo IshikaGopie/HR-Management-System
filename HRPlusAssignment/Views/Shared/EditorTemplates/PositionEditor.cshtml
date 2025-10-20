@@ -32,7 +32,7 @@
             .DataTextField("Text")
             .DataValueField("Value")
             .DataSource(source => source
-                .Read(read => read.Action("GetDepartments", "Home"))
+                .Read(read => read.Action("GetDepartments", "Departments"))
             )
             .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Department" })
         )
@@ -47,7 +47,7 @@
             .DataTextField("Text")
             .DataValueField("Value")
             .DataSource(source => source
-                .Read(read => read.Action("GetJobs", "Home"))
+                .Read(read => read.Action("GetJobs", "Jobs"))
             )
             .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Job" })
         )
@@ -70,7 +70,7 @@
             .DataTextField("Text")
             .DataValueField("Value")
             .DataSource(source => source
-                .Read(read => read.Action("GetPositions", "Home"))
+                .Read(read => read.Action("GetPositions", "Positions"))
             )
             .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Reporting Position (Optional)" })
         )

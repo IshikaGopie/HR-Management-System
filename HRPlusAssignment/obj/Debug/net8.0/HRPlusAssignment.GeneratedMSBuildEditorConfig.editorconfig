@@ -26,12 +26,12 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW1wbG95ZWVzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+[/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Employees/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW1wbG95ZWVzL1ByaXZhY3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/ish/RiderProjects/HRPlusAssignment/HRPlusAssignment/Views/Shared/EditorTemplates/EmployeeEditor.cshtml]

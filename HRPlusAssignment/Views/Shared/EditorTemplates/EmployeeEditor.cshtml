@@ -49,7 +49,7 @@
             .DataTextField("Text")
             .DataValueField("Value")
             .DataSource(source => source
-                .Read(read => read.Action("GetPositions", "Home"))
+                .Read(read => read.Action("GetPositions", "Positions"))
             )
             .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Position" })
         )

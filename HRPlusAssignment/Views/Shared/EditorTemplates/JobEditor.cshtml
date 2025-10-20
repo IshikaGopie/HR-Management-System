@@ -32,7 +32,7 @@
             .DataTextField("Text")
             .DataValueField("Value")
             .DataSource(source => source
-                .Read(read => read.Action("GetJobGroups", "Home"))
+                .Read(read => read.Action("GetJobGroups", "JobGroups"))
             )
             .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Job Group" })
         )

@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewData["Title"] = "Employee Management";
 }
 <h1>@ViewData["Title"]</h1>
@@ -48,10 +48,10 @@
                     model.Field(p => p.PositionId);
                     model.Field(p => p.Status);
                 })
-                .Read(read => read.Action("Employees_Read", "Home"))
-                .Create(create => create.Action("Employee_Create", "Home"))
-                .Update(update => update.Action("Employee_Update", "Home"))
-                .Destroy(destroy => destroy.Action("Employee_Delete", "Home"))
+                .Read(read => read.Action("Employees_Read", "Employees"))
+                .Create(create => create.Action("Employee_Create", "Employees"))
+                .Update(update => update.Action("Employee_Update", "Employees"))
+                .Destroy(destroy => destroy.Action("Employee_Delete", "Employees"))
             )
         )
     </div>
@@ -74,8 +74,8 @@
     /* Base button styles */
     .my-edit-btn,
     .my-delete-btn {
-        width: 90px;              /* uniform width */
-        height: 36px;             /* uniform height */
+        width: 90px;             
+        height: 36px;            
         border: none;
         border-radius: 6px;
         color: #fff;
@@ -89,7 +89,6 @@
         font-size: 14px;
     }
 
-    /* Edit button */
     .my-edit-btn {
         background-color: #4a90e2;
     }
@@ -99,7 +98,6 @@
         transform: scale(1.05);
     }
 
-    /* Delete button */
     .my-delete-btn {
         background-color: #e74c3c;
     }
@@ -109,7 +107,6 @@
         transform: scale(1.05);
     }
 
-    /* Optional: keep consistent spacing between buttons */
     .k-grid .k-grid-content .k-command-cell .k-button + .k-button,
     .k-grid .k-command-cell .my-edit-btn + .my-delete-btn {
         margin-left: 8px;
