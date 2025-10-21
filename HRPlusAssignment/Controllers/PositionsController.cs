@@ -59,8 +59,13 @@ public class PositionsController : Controller
     [HttpPost]
     public IActionResult Position_Delete([DataSourceRequest] DataSourceRequest request, Position position)
     {
-        _context.Positions.Remove(position);
-        _context.SaveChanges();
+        if (_context.Employees.Any(e => e.PositionId == position.PositionId))
+            ModelState.AddModelError("delete", "Position is in use by one or more employees and cannot be deleted.");
+        else
+        {
+            _context.Positions.Remove(position);
+            _context.SaveChanges();
+        }
         return Json(new[] { position }.ToDataSourceResult(request, ModelState));
     }
 

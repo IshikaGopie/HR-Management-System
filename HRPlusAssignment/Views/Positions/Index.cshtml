@@ -58,7 +58,19 @@
                 .Create(create => create.Action("Position_Create", "Positions"))
                 .Update(update => update.Action("Position_Update", "Positions"))
                 .Destroy(destroy => destroy.Action("Position_Delete", "Positions"))
+                .Events(events => events.Error("checkErrors"))
             )
-        )
+        ) 
     </div>
 </div>
+
+<script>
+    function checkErrors(data) {
+        if (data.errors.delete) {
+           if (data.errors.delete.errors.length > 0) {
+                console.error("Error deleting position: " + data.errors.delete.errors[0]);
+                alert("Error deleting position: " + data.errors.delete.errors[0]);
+            }
+        }
+    }
+</script>

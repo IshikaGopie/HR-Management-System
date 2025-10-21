@@ -59,8 +59,14 @@ public class JobsController : Controller
     [HttpPost]
     public IActionResult Job_Delete([DataSourceRequest] DataSourceRequest request, Job job)
     {
-        _context.Jobs.Remove(job);
-        _context.SaveChanges();
+        // check if the job is in use by a position
+        if (_context.Positions.Any(p => p.JobId == job.JobId))
+            ModelState.AddModelError("delete", "Job is in use by one or more positions and cannot be deleted.");
+        else
+        {
+            _context.Jobs.Remove(job);
+            _context.SaveChanges();
+        }
         return Json(new[] { job }.ToDataSourceResult(request, ModelState));
     }
 

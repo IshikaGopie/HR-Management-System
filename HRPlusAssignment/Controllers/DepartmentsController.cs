@@ -59,8 +59,16 @@ public class DepartmentsController : Controller
     [HttpPost]
     public IActionResult Department_Delete([DataSourceRequest] DataSourceRequest request, Department department)
     {
-        _context.Departments.Remove(department);
-        _context.SaveChanges();
+        // check if department is in use by a position
+        if (_context.Positions.Any(p => p.DepartmentId == department.DepartmentId))
+        {
+            ModelState.AddModelError("delete", "Department is in use by one or more positions and cannot be deleted.");
+        } else
+        {
+            _context.Departments.Remove(department);
+            _context.SaveChanges();
+        }
+        
         return Json(new[] { department }.ToDataSourceResult(request, ModelState));
     }
 

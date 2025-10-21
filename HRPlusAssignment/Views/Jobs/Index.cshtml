@@ -50,7 +50,19 @@
                 .Create(create => create.Action("Job_Create", "Jobs"))
                 .Update(update => update.Action("Job_Update", "Jobs"))
                 .Destroy(destroy => destroy.Action("Job_Delete", "Jobs"))
+                .Events(events => events.Error("checkErrors"))
             )
         )
     </div>
 </div>
+
+<script>
+    function checkErrors(data) {
+        if (data.errors.delete) {
+           if (data.errors.delete.errors.length > 0) {
+                console.error("Error deleting job: " + data.errors.delete.errors[0]);
+                alert("Error deleting job: " + data.errors.delete.errors[0]);
+            }
+        }
+    }
+</script>
