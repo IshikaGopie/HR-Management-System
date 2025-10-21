@@ -11,7 +11,9 @@ namespace HRPlusAssignment.Models
         [MaxLength(100)]
         public string JobGroupName { get; set; } = string.Empty;
         
-        // Navigation properties
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        
         public virtual ICollection<Job> Jobs { get; set; } = new List<Job>();
     }
 }

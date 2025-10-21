@@ -15,7 +15,9 @@ namespace HRPlusAssignment.Models
         [MaxLength(100)]
         public string DepartmentName { get; set; } = string.Empty;
         
-        // Navigation properties
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        
         public virtual ICollection<Position> Positions { get; set; } = new List<Position>();
     }
 }

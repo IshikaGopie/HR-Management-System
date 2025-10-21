@@ -42,7 +42,9 @@ namespace HRPlusAssignment.Models
         [Required]
         public PositionStatus Status { get; set; }
         
-        // Navigation properties
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        
         [JsonIgnore]
         public virtual Department Department { get; set; } = null!;
         [JsonIgnore]

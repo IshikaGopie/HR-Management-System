@@ -20,7 +20,9 @@ namespace HRPlusAssignment.Models
         [ForeignKey(nameof(JobGroup))]
         public string JobGroupId { get; set; } = string.Empty;
         
-        // Navigation properties
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        
         public virtual JobGroup JobGroup { get; set; } = null!;
         public virtual ICollection<Position> Positions { get; set; } = new List<Position>();
     }

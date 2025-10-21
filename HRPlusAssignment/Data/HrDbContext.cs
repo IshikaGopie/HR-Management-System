@@ -26,6 +26,11 @@ namespace HRPlusAssignment.Data
                 entity.Property(e => e.DepartmentId).HasMaxLength(50);
                 entity.Property(e => e.DepartmentCode).HasMaxLength(50);
                 entity.Property(e => e.DepartmentName).HasMaxLength(100);
+                
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
             // Configure JobGroup
@@ -34,6 +39,11 @@ namespace HRPlusAssignment.Data
                 entity.HasKey(e => e.JobGroupId);
                 entity.Property(e => e.JobGroupId).HasMaxLength(50);
                 entity.Property(e => e.JobGroupName).HasMaxLength(100);
+                
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
 
             // Configure Job
@@ -44,6 +54,11 @@ namespace HRPlusAssignment.Data
                 entity.Property(e => e.JobCode).HasMaxLength(50);
                 entity.Property(e => e.JobTitle).HasMaxLength(100);
                 entity.Property(e => e.JobGroupId).HasMaxLength(50);
+                
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.JobGroup)
                     .WithMany(p => p.Jobs)
@@ -62,6 +77,11 @@ namespace HRPlusAssignment.Data
                 entity.Property(e => e.JobId).HasMaxLength(50);
                 entity.Property(e => e.JobLevel).HasMaxLength(50);
                 entity.Property(e => e.ReportsToPositionId).HasMaxLength(50);
+                
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Positions)
@@ -89,6 +109,11 @@ namespace HRPlusAssignment.Data
                 entity.Property(e => e.LastName).HasMaxLength(50);
                 entity.Property(e => e.Email).HasMaxLength(100);
                 entity.Property(e => e.Phone).HasMaxLength(20);
+                
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.Employees)
