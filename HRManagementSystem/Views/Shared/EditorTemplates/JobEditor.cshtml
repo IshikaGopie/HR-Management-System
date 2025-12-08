@@ -1,0 +1,41 @@
+@model HRManagementSystem.Models.Job
+
+<div class="k-edit-form-container">
+    <div class="k-edit-label">
+        <label for="JobId"><i class="fas fa-id-card"></i> Job ID</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.JobId, new { @class = "k-textbox", @readonly = "readonly", @placeholder = "Auto-generated" })
+    </div>
+
+    <div class="k-edit-label">
+        <label for="JobCode"><i class="fas fa-code"></i> Job Code</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.JobCode, new { @class = "k-textbox", @placeholder = "e.g., DEV, MGR, SALES" })
+        @Html.ValidationMessageFor(m => m.JobCode)
+    </div>
+
+    <div class="k-edit-label">
+        <label for="JobTitle"><i class="fas fa-briefcase"></i> Job Title</label>
+    </div>
+    <div class="k-edit-field">
+        @Html.TextBoxFor(m => m.JobTitle, new { @class = "k-textbox", @placeholder = "e.g., Software Developer" })
+        @Html.ValidationMessageFor(m => m.JobTitle)
+    </div>
+
+    <div class="k-edit-label">
+        <label for="JobGroupId"><i class="fas fa-layer-group"></i> Job Group</label>
+    </div>
+    <div class="k-edit-field">
+        @(Html.Kendo().DropDownListFor(m => m.JobGroupId)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source => source
+                .Read(read => read.Action("GetJobGroups", "JobGroups"))
+            )
+            .HtmlAttributes(new { @class = "k-textbox", @placeholder = "Select Job Group" })
+        )
+        @Html.ValidationMessageFor(m => m.JobGroupId)
+    </div>
+</div>

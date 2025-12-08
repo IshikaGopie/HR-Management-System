@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "Job Management";
+}
+<div class="page-header">
+    <div class="container-fluid">
+        <h1>@ViewData["Title"]</h1>
+        <p class="responsive-text">Welcome to the job management application! Manage your job directory below.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRManagementSystem.Models.Job>()
+            .Name("jobGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.JobId).Title("Job ID").Width("80px");
+                columns.Bound(c => c.JobCode).Title("Job Code").Width("120px");
+                columns.Bound(c => c.JobTitle).Title("Job Title").Width("200px");
+                columns.Bound(c => c.JobGroupId).Title("Job Group ID").Width("120px");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width("150px");
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("Add New Job");
+                toolbar.Excel();
+                toolbar.Search();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("JobEditor"))
+            .Pageable(pageable => pageable
+                .Refresh(true)
+                .PageSizes(true)
+                .ButtonCount(5)
+                .PageSizes(new int[] { 5, 10, 20, 50, 100 })
+            )
+            .HtmlAttributes(new { style = "height: 700px;" })
+            .Scrollable(scrollable => scrollable.Virtual(true))
+            .Resizable(resizable => resizable.Columns(true))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.JobId);
+                    model.Field(p => p.JobCode);
+                    model.Field(p => p.JobTitle);
+                    model.Field(p => p.JobGroupId);
+                })
+                .Read(read => read.Action("Jobs_Read", "Jobs"))
+                .Create(create => create.Action("Job_Create", "Jobs"))
+                .Update(update => update.Action("Job_Update", "Jobs"))
+                .Destroy(destroy => destroy.Action("Job_Delete", "Jobs"))
+                .Events(events => events.Error("checkErrors"))
+            )
+        )
+    </div>
+</div>
+
+<script>
+    function checkErrors(data) {
+        if (data.errors.delete) {
+           if (data.errors.delete.errors.length > 0) {
+                console.error("Error deleting job: " + data.errors.delete.errors[0]);
+                alert("Error deleting job: " + data.errors.delete.errors[0]);
+            }
+        }
+    }
+</script>

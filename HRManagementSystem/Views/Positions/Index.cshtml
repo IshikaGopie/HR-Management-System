@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Position Management";
+}
+<div class="page-header">
+    <div class="container-fluid">
+        <h1>@ViewData["Title"]</h1>
+        <p class="responsive-text">Welcome to the position management application! Manage your position directory below.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        @(Html.Kendo().Grid<HRManagementSystem.Models.Position>()
+            .Name("positionGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.PositionId).Title("Position ID").Width("80px");
+                columns.Bound(c => c.PositionCode).Title("Position Code").Width("100px");
+                columns.Bound(c => c.PositionTitle).Title("Position Title").Width("180px");
+                columns.Bound(c => c.DepartmentId).Title("Department ID").Width("80px");
+                columns.Bound(c => c.JobId).Title("Job ID").Width("60px");
+                columns.Bound(c => c.JobLevel).Title("Job Level").Width("80px");
+                columns.Bound(c => c.ReportsToPositionId).Title("Reports To").Width("80px");
+                columns.Bound(c => c.Status).Width("80px");
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width("150px");
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create().Text("Add New Position");
+                toolbar.Excel();
+                toolbar.Search();
+            })
+            .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("PositionEditor"))
+            .Pageable(pageable => pageable
+                .Refresh(true)
+                .PageSizes(true)
+                .ButtonCount(5)
+                .PageSizes(new int[] { 5, 10, 20, 50, 100 })
+            )
+            .HtmlAttributes(new { style = "height: 700px;" })
+            .Scrollable(scrollable => scrollable.Virtual(true))
+            .Resizable(resizable => resizable.Columns(true))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .Model(model =>
+                {
+                    model.Id(p => p.PositionId);
+                    model.Field(p => p.PositionCode);
+                    model.Field(p => p.PositionTitle);
+                    model.Field(p => p.DepartmentId);
+                    model.Field(p => p.JobId);
+                    model.Field(p => p.JobLevel);
+                    model.Field(p => p.ReportsToPositionId);
+                    model.Field(p => p.Status);
+                })
+                .Read(read => read.Action("Positions_Read", "Positions"))
+                .Create(create => create.Action("Position_Create", "Positions"))
+                .Update(update => update.Action("Position_Update", "Positions"))
+                .Destroy(destroy => destroy.Action("Position_Delete", "Positions"))
+                .Events(events => events.Error("checkErrors"))
+            )
+        ) 
+    </div>
+</div>
+
+<script>
+    function checkErrors(data) {
+        if (data.errors.delete) {
+           if (data.errors.delete.errors.length > 0) {
+                console.error("Error deleting position: " + data.errors.delete.errors[0]);
+                alert("Error deleting position: " + data.errors.delete.errors[0]);
+            }
+        }
+    }
+</script>
